@@ -1,0 +1,40 @@
+{
+  "name": "express-postgresql-auth",
+  "version": "1.0.0",
+  "description": "Express + PostgreSQL + Basic Auth",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codedbychavez/express-postgresql-auth.git"
+  },
+  "keywords": [
+    "postgresql",
+    "auth",
+    "node",
+    "auth",
+    "express",
+    "auth",
+    "basic",
+    "postgres",
+    "auth",
+    "node",
+    "authentication"
+  ],
+  "author": "Chavez Harris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codedbychavez/express-postgresql-auth/issues"
+  },
+  "homepage": "https://github.com/codedbychavez/express-postgresql-auth#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg-promise": "^11.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
