@@ -1,1 +1,1 @@
-# node-express-postgresql-auth
+# Express + PostgreSQL + Basic Auth
