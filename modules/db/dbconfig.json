@@ -1,0 +1,6 @@
+{
+  "host": "localhost",
+  "post": 5432,
+  "database": "app_database",
+  "user": "admin"
+}
