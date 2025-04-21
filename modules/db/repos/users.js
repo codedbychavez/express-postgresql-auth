@@ -21,7 +21,7 @@ class UsersRepository {
   }
 
   insert(userId, username, hashedPassword, salt, callback) {
-    this.db.one(sql.insert, userId, username, hashedPassword, salt)
+    this.db.one(sql.insert, [userId, username, hashedPassword, salt])
       .then(function (user) {
         return callback(null, user);
       })

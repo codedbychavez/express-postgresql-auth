@@ -11,6 +11,7 @@ const { passport } = require('./modules/auth');
 
 // Add database module
 const { db } = require('./modules/db');
+const { error } = require('console');
 
 // Middleware
 app.use(express.json());
@@ -47,14 +48,18 @@ app.post("/auth/signout", function (req, res) {
 app.post("/auth/signup", function (req, res, next) {
   const salt = crypto.randomBytes(16);
 
-  const password = req.body.password;
+  const { username, password } = req.body;
 
-  // TODO: Generate a unique userID
   const userId = Date.now();
 
   crypto.pbkdf2(password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
     if (err) { return next(err); }
-    await db.users.insert(userId, username, hashedPassword, salt, function (err, user) {
+
+    // Convert params to JSON
+    const hashedPasswordJson = JSON.stringify(hashedPassword);
+    const saltJson = JSON.stringify(salt);
+
+    await db.users.insert(userId, username, hashedPasswordJson, saltJson, function (err, user) {
       if (err) { return res.json({ message: 'Failed to sign up' }) };
       if (user) {
         return res.json({ user: user });
