@@ -11,3 +11,5 @@
 - https://vitaly-t.github.io/pg-promise/index.html
 
 - https://github.com/vitaly-t/pg-promise-demo/tree/master/JavaScript
+
+- [Passport.js](https://www.passportjs.org/): User Authentication

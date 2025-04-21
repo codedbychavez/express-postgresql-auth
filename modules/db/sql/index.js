@@ -1,9 +1,10 @@
-const {QueryFile} = require('pg-promise');
-const {join} = require('path');
+const { QueryFile } = require('pg-promise');
+const { join } = require('path');
 
 module.exports = {
   users: {
-    all: sql('users/all.sql')
+    all: sql('users/all.sql'),
+    find: sql('users/find.sql')
   }
 }
 
@@ -15,20 +16,20 @@ function sql(file) {
 
   const options = {
 
-      // minifying the SQL is always advised;
-      // see also option 'compress' in the API;
-      minify: true
+    // minifying the SQL is always advised;
+    // see also option 'compress' in the API;
+    minify: true
 
-      // See also property 'params' for two-step template formatting
+    // See also property 'params' for two-step template formatting
   };
 
   const qf = new QueryFile(fullPath, options);
 
   if (qf.error) {
-      // Something is wrong with our query file :(
-      // Testing all files through queries can be cumbersome,
-      // so we also report it here, while loading the module:
-      console.error(qf.error);
+    // Something is wrong with our query file :(
+    // Testing all files through queries can be cumbersome,
+    // so we also report it here, while loading the module:
+    console.error(qf.error);
   }
 
   return qf;
