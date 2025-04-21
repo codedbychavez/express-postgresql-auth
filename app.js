@@ -4,10 +4,14 @@ const port = 3000;
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const { join } = require('path');
+const crypto = require('crypto');
 
 // Add authentication module
 const { passport } = require('./modules/auth');
 
+// Add database module
+const { db } = require('./modules/db');
+const { error } = require('console');
 
 // Middleware
 app.use(express.json());
@@ -38,6 +42,29 @@ app.post("/auth/signout", function (req, res) {
   req.logout(function (err) {
     if (err) { return next(err); }
     res.json({ message: "Signout successful" });
+  })
+});
+
+app.post("/auth/signup", function (req, res, next) {
+  const salt = crypto.randomBytes(16);
+
+  const { username, password } = req.body;
+
+  const userId = Date.now();
+
+  crypto.pbkdf2(password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
+    if (err) { return next(err); }
+
+    // Convert params to JSON
+    const hashedPasswordJson = JSON.stringify(hashedPassword);
+    const saltJson = JSON.stringify(salt);
+
+    await db.users.insert(userId, username, hashedPasswordJson, saltJson, function (err, user) {
+      if (err) { return res.json({ message: 'Failed to sign up' }) };
+      if (user) {
+        return res.json({ user: user });
+      }
+    })
   })
 });
 

@@ -12,13 +12,25 @@ class UsersRepository {
 
   findByUsername(username, callback) {
     this.db.oneOrNone(sql.find, username)
-      .then((user) => {
+      .then(function (user) {
         return callback(null, user);
       })
-      .catch((err) => {
+      .catch(function (err) {
         return callback(err, null);
       })
   }
+
+  insert(userId, username, hashedPassword, salt, callback) {
+    this.db.one(sql.insert, [userId, username, hashedPassword, salt])
+      .then(function (user) {
+        return callback(null, user);
+      })
+      .catch(function (err) {
+        return callback(err, null);
+      })
+
+  }
+
 }
 
 module.exports = UsersRepository;

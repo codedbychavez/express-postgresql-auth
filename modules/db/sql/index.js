@@ -4,7 +4,8 @@ const { join } = require('path');
 module.exports = {
   users: {
     all: sql('users/all.sql'),
-    find: sql('users/find.sql')
+    find: sql('users/find.sql'),
+    insert: sql('users/insert.sql')
   }
 }
 
