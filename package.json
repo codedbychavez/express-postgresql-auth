@@ -31,7 +31,11 @@
   },
   "homepage": "https://github.com/codedbychavez/express-postgresql-auth#readme",
   "dependencies": {
+    "connect-sqlite3": "^0.9.15",
     "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
     "pg-promise": "^11.13.0"
   },
   "devDependencies": {

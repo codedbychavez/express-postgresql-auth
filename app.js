@@ -1,13 +1,41 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
+const { join } = require('path');
 
-// Add database module
-const {db} = require('./modules/db');
+// Add authentication module
+const { passport } = require('./modules/auth');
+
+
+// Middleware
+app.use(express.json());
+
+app.use(express.static(join(__dirname, 'public')));
+app.use(session({
+  secret: 'express-postgresql-auth',
+  resave: false,
+  saveUninitialized: false,
+  store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
+}));
+
+app.use(passport.authenticate('session'));
+
+app.post("/auth/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) return res.status(401).json({ message: info.message });
+
+    req.login(user, (loginErr) => {
+      if (loginErr) return next(loginErr);
+      res.json({ message: "Login successful", user });
+    });
+  })(req, res, next);
+});
 
 
 app.get('/', async (req, res) => {
-  console.log(await db.users.all());
   res.send('Hello World');
 })
 
