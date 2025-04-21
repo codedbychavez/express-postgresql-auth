@@ -22,7 +22,7 @@ app.use(session({
 
 app.use(passport.authenticate('session'));
 
-app.post("/auth/login", (req, res, next) => {
+app.post("/auth/login", function (req, res, next) {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.status(401).json({ message: info.message });
@@ -34,8 +34,8 @@ app.post("/auth/login", (req, res, next) => {
   })(req, res, next);
 });
 
-app.post("/auth/signout", (req, res) => {
-  req.logout((err) => {
+app.post("/auth/signout", function (req, res) {
+  req.logout(function (err) {
     if (err) { return next(err); }
     res.json({ message: "Signout successful" });
   })
