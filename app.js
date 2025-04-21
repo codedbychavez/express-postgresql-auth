@@ -11,7 +11,6 @@ const { passport } = require('./modules/auth');
 
 // Add database module
 const { db } = require('./modules/db');
-const { error } = require('console');
 
 // Middleware
 app.use(express.json());
