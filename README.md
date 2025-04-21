@@ -1,6 +1,6 @@
 # Express + PostgreSQL + Basic Auth
 
-Welcome to an advanced demo of Express + PostSQL + Basic Auth.
+Welcome to a demo of Express + PostSQL + Basic Auth.
 
 ## Getting started
 
@@ -12,7 +12,7 @@ Welcome to an advanced demo of Express + PostSQL + Basic Auth.
 npm run dev
 ```
 
-3. Check is the app connected successfully to the database. `module/db/index.js` logs the status of the database connection:
+3. Check if the app connected successfully to the database. `module/db/index.js` logs the status of the database connection:
 
 ```js
 const pgPromise = require('pg-promise');
