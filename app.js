@@ -34,6 +34,12 @@ app.post("/auth/login", (req, res, next) => {
   })(req, res, next);
 });
 
+app.post("/auth/signout", (req, res) => {
+  req.logout((err) => {
+    if (err) { return next(err); }
+    res.json({ message: "Signout successful" });
+  })
+});
 
 app.get('/', async (req, res) => {
   res.send('Hello World');
